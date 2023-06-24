@@ -9,12 +9,12 @@ drawing_utils = mp.solutions.drawing_utils
 screen_width, screen_height = pyautogui.size()
 index_y = 0
 
-# Variables for smoothing the cursor movement
-smoothing_factor = 5  # Adjust this value to control the smoothing level
+
+smoothing_factor = 5 
 smooth_thumb_x, smooth_thumb_y = 0, 0
 smooth_index_x, smooth_index_y = 0, 0
 
-thumb_index_touching = False  # Flag to keep track of thumb and index finger touching
+thumb_index_touching = False 
 
 while True:
     _, frame = cap.read()
@@ -43,7 +43,7 @@ while True:
                     index_x = screen_width / frame_width * x
                     index_y = screen_height / frame_height * y
 
-            # Apply smoothing to thumb and index coordinates
+
             smooth_thumb_x += (thumb_x - smooth_thumb_x) / smoothing_factor
             smooth_thumb_y += (thumb_y - smooth_thumb_y) / smoothing_factor
             smooth_index_x += (index_x - smooth_index_x) / smoothing_factor
@@ -58,7 +58,7 @@ while True:
             if thumb_index_touching:
                 pyautogui.click()
 
-            if smooth_index_y < smooth_thumb_y - 45:  # Thumb is not raised
+            if smooth_index_y < smooth_thumb_y - 45:  # Until it hits 45, thumb is not raised (not clicked). You can adjust it bro based on your finger distance. 
                 pyautogui.moveTo(smooth_index_x, smooth_index_y)
 
     cv2.imshow('Virtual Mouse', frame)
